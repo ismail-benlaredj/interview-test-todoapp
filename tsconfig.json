@@ -24,6 +24,9 @@
       "@components/*": [
         "components/*"
       ],
+      "@const/*": [
+        "lib/const/*"
+      ],
     },
   },
   "include": [
