@@ -43,6 +43,7 @@ interface TodoModel {
     addTodo: Action<TodoModel, Todo>;
     deleteTodo: Action<TodoModel, number>;
     toggleTodo: Action<TodoModel, number>;
+    addNestedTodo: Action<TodoModel, any>;
     toggleNestedTodo: Action<TodoModel, any>;
 
 }
@@ -62,6 +63,16 @@ const todoModel: TodoModel = {
         state.todos = state.todos.map((todo) =>
             todo.id === payload ? { ...todo, completed: !todo.completed } : todo
         );
+    }),
+
+    addNestedTodo: action((state, payload) => {
+        for (let i = 0; i < state.todos.length; i++) {
+            if (state.todos[i].id === payload.id) {
+                console.log(state.todos[i])
+                state.todos[i].nestedTodos.push(payload.data)
+                break;
+            }
+        }
     }),
     toggleNestedTodo: action((state, payload) => {
         state.todos[payload.id] = payload.data

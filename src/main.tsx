@@ -10,6 +10,6 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <StoreProvider store={store}>
       <App />
-    </StoreProvider>,
-  </React.StrictMode>,
+    </StoreProvider>
+  </React.StrictMode>
 )

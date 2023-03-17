@@ -2,11 +2,13 @@
 import { patchData } from "../lib/utils/httpRequests"
 import { NESTED_TODO_API } from "@const/index"
 import AddButton from "./AddButton"
+import AddTodoForm from "./AddTodoForm"
 import { useState } from "react"
 
 // NESTED TODO LIST COMPONENT
-const NestedTodos = ({ todos }: any) => {
+const NestedTodos = ({ todos, todoId, setNestedTodos }: any) => {
 
+    const [showForm, setShowForm] = useState(false)
 
     return (
         <>
@@ -22,10 +24,19 @@ const NestedTodos = ({ todos }: any) => {
                     />
                 ))}
             </div>
-            <div className="absolute bottom-3 right-3">
-                <AddButton btn="Add nested todo" />
+            {!showForm &&
+                <div className="absolute bottom-3 right-3">
+                    <AddButton btn="Add nested todo" setShowForm={setShowForm} showForm={showForm} />
+                </div>}
+            {showForm &&
+                <AddTodoForm
+                    setShowForm={setShowForm}
+                    addForNested={true}
+                    idNested={todoId}
+                    todos={todos}
+                    setNestedTodos={setNestedTodos}
+                />}
 
-            </div>
         </>
 
     )

@@ -7,8 +7,8 @@ import NestedTodos from "./NestedTodos"
 
 export default function TodoList({ todos }: any) {
     return (
-        todos.map((todo: any) => {
-            return (
+        <div className="pt-9">
+            {todos.map((todo: any) => (
                 <TodoItem
                     key={todo.id}
                     id={todo.id}
@@ -17,9 +17,8 @@ export default function TodoList({ todos }: any) {
                     completed={todo.completed}
                     endDate={todo.endDate}
                 />
-            )
-        })
-
+            ))}
+        </div>
     )
 }
 
@@ -34,14 +33,11 @@ type TodoItemProps = {
 }
 const TodoItem = ({ id, title, description, completed, endDate }: TodoItemProps) => {
 
-    const [iscompleted, setIscompleted] = useState<boolean>(completed)
     const [isToggledTodo, setIsToggledTodo] = useState(false)
     const [nestedTodos, setNestedTodos] = useState<any>([])
     const { toggleTodo } = useStoreActions((actions) => actions.todo)
 
-
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setIscompleted(!iscompleted)
         patchData(`${TODO_API}/${id}`, { completed: !completed })
         toggleTodo(id)
     }
@@ -62,16 +58,18 @@ const TodoItem = ({ id, title, description, completed, endDate }: TodoItemProps)
                     <SlArrowDown className={isToggledTodo ? "rotate-180 text-white" : "text-white"} />
                 </div>
                 <div className="mr-4">
-                    <input checked={iscompleted} onChange={handleChange} type="checkbox" className="w-7 h-7 text-green-600 bg-gray-100 border-gray-300 rounded-full focus:ring-green-500 " />
+                    <input checked={completed} onChange={handleChange} type="checkbox" className="w-7 h-7 text-green-600 bg-gray-100 border-gray-300 rounded-full focus:ring-green-500 " />
                 </div>
                 <div className="flex flex-col">
                     <h3 className="text-gray-50 text-lg font-semibold">{title}</h3>
                     <p className="text-gray-300 ml-">{description} </p>
+
+                    <span className='text-white font-light mt-5'>{endDate}</span>
                 </div>
             </div>
             {isToggledTodo &&
-                <div className='h-72 relative'>
-                    {nestedTodos && <NestedTodos todos={nestedTodos} />}
+                <div className='min-h-72 pb-24 relative'>
+                    {nestedTodos && <NestedTodos todos={nestedTodos} todoId={id} setNestedTodos={setNestedTodos} />}
                 </div>}
         </div>
     )
