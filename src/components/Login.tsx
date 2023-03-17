@@ -17,19 +17,25 @@ export default function Login() {
         e.preventDefault()
         setUrl(AUTH_API + email)
     }
+
     useEffect(() => {
         if (data && data.length > 0) {
             localStorage.setItem('user', JSON.stringify(data));
-            setUser(data)
+            console.log(data[0].id)
+            setUser({
+                id: data[0].id,
+                email: data[0].email,
+                auth: true
+            })
             navigate("/");
         }
-    }, [data, history])
+    }, [data])
 
 
     return (
 
         <MainLayout >
-            <div className="items-center flex flex-col justify-center">
+            <div className="items-center flex flex-col justify-center text-white">
                 <h1 className="text-4xl font-bold mb-10">Log in</h1>
                 <form className="w-72 text-center" onSubmit={handleSubmit}>
                     <div className="mb-4">

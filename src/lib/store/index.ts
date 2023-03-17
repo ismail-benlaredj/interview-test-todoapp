@@ -56,12 +56,16 @@ const todoModel: TodoModel = {
     }),
 };
 
+interface StoreModel {
+    todo: TodoModel;
+    user: UserModel;
+}
 const store = createStore({
     todo: todoModel,
     user: userModel,
 });
 
-const typedHooks = createTypedHooks();
+const typedHooks = createTypedHooks<StoreModel>();
 
 export const useStoreActions = typedHooks.useStoreActions;
 export const useStoreDispatch = typedHooks.useStoreDispatch;
