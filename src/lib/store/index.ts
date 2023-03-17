@@ -27,13 +27,14 @@ const userModel: UserModel = {
 }
 
 interface Todo {
-    userId: number;
+    userId?: number;
     id: number;
     pos: number;
     title: string;
     description: string;
     completed: boolean;
     endDate: string;
+    nestedTodos?: Todo[];
 }
 
 interface TodoModel {
@@ -42,6 +43,7 @@ interface TodoModel {
     addTodo: Action<TodoModel, Todo>;
     deleteTodo: Action<TodoModel, number>;
     toggleTodo: Action<TodoModel, number>;
+    toggleNestedTodo: Action<TodoModel, any>;
 
 }
 
@@ -60,6 +62,9 @@ const todoModel: TodoModel = {
         state.todos = state.todos.map((todo) =>
             todo.id === payload ? { ...todo, completed: !todo.completed } : todo
         );
+    }),
+    toggleNestedTodo: action((state, payload) => {
+        state.todos[payload.id] = payload.data
     }),
 };
 

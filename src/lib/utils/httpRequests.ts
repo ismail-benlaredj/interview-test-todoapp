@@ -18,3 +18,32 @@ export const postData = async (url, data: any) => {
   }
 };
 
+export const patchData = async (url, data) => {
+  try {
+    const response = await fetch(url, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    const jsonData = await response.json();
+    return jsonData;
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
+
+export async function getData(url) {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+}
