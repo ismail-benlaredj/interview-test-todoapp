@@ -4,7 +4,11 @@ import { TODO_API } from "@const/index"
 import { useStoreState, useStoreActions } from '../lib/store';
 
 
-export default function AddTodoForm() {
+type AddTodoFormProps = {
+    setShowForm: (value: React.SetStateAction<boolean>) => void;
+}
+
+export default function AddTodoForm({ setShowForm }: AddTodoFormProps) {
     const [todo, setTodo] = useState("")
     const [description, setdescription] = useState("")
     const [endDate, setendDate] = useState("")
@@ -47,12 +51,13 @@ export default function AddTodoForm() {
                             className="flex-shrink-0 bg-blue-500 hover:bg-blue-600 focus:outline-none focus:bg-blue-600 text-sm  text-white px-4 py-2 rounded" type="button">
                             add todo
                         </button>
-                        <button className="flex-shrink-0 border-transparent border-4 text-blue-400 hover:text-blue-100 text-sm py-1 px-2 rounded" type="button">
+                        <button onClick={() => setShowForm(false)}
+                            className="flex-shrink-0 border-transparent border-4 text-blue-400 hover:text-blue-100 text-sm py-1 px-2 rounded" type="button">
                             Cancel
                         </button>
                     </div>
                 </div>
-            </form>
-        </div>
+            </form >
+        </div >
     )
 }

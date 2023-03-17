@@ -70,7 +70,7 @@ const TodoItem = ({ id, title, description, completed, endDate }: TodoItemProps)
                 </div>
             </div>
             {isToggledTodo &&
-                <div className='h-72'>
+                <div className='h-72 relative'>
                     {nestedTodos && <NestedTodos todos={nestedTodos} />}
                 </div>}
         </div>

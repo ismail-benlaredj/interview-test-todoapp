@@ -6,11 +6,10 @@ import { useState } from "react"
 
 // NESTED TODO LIST COMPONENT
 const NestedTodos = ({ todos }: any) => {
-    console.log(todos)
+
 
     return (
         <>
-
             <div className="relative mt-8">
                 {todos.map((todo: any) => (
                     <NestedTodoItem
@@ -23,7 +22,10 @@ const NestedTodos = ({ todos }: any) => {
                     />
                 ))}
             </div>
-            <AddButton btn="Add nested todo" />
+            <div className="absolute bottom-3 right-3">
+                <AddButton btn="Add nested todo" />
+
+            </div>
         </>
 
     )
