@@ -51,8 +51,8 @@ const TodoItem = ({ id, title, description, completed, endDate }: TodoItemProps)
 
     const checkDueDate = () => {
         const date = new Date(endDate);
-        const today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-        return date < today;
+        const today = new Date();
+        return date > today;
     }
 
     return (
