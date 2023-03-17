@@ -23,7 +23,7 @@ export default function AddTodoForm({
     const [todo, setTodo] = useState("")
     const [description, setdescription] = useState("")
     const [endDate, setendDate] = useState("")
-
+    const [notif, setNotif] = useState(false)
     const { user } = useStoreState((state) => state.user)
     const { addTodo } = useStoreActions((actions) => actions.todo)
 
@@ -40,6 +40,9 @@ export default function AddTodoForm({
         }
         const { data } = await postData(TODO_API, todoData)
         addTodo(data)
+        addedNotif()
+        setTodo("")
+        setdescription("")
     }
 
     const handleAddNestedTodo = async () => {
@@ -55,21 +58,34 @@ export default function AddTodoForm({
         const { data } = await postData(NESTED_TODO_API, todoData)
         let tab = [...todos]
         tab.push(data)
-        console.log(tab)
         setNestedTodos(tab)
+        addedNotif()
+    }
+
+
+    function addedNotif() {
+        setNotif(true);
+        setTimeout(() => {
+            setNotif(false);
+        }, 2000);
     }
 
     return (
         <div className="p-4 border-2 border-gray-700 rounded-lg sticky">
-            <form className="w-full">
+            <form className="w-full relative ">
+                {notif &&
+                    <div className="px-4 py-2 absolute -bottom-1 text-lg text-white font-semibold bg-green-500 rounded-xl transition-opacity ease-linear">Item added </div>
+                }
                 <div className="flex flex-col  py-2">
                     <div className="border-b border-gray-700 mb-4">
                         <input onChange={(e) => { setTodo(e.target.value) }}
+                            value={todo}
                             className={style} type="text" placeholder="New todo..." aria-label="todo name" />
                     </div>
                     <div className="border-b border-gray-700 mb-4">
                         <input
                             onChange={(e) => { setdescription(e.target.value) }}
+                            value={description}
                             className={style} type="text" placeholder="Description" aria-label="todo Description" />
                     </div>
                     <div className=" mb-4 w-[200px]">

@@ -74,7 +74,7 @@ const NestedTodoItem = ({ id, title, description, completed, endDate }: TodoItem
             </div>
             <div className="flex flex-col">
                 <h3 className="text-gray-50 text-md font-semibold">{title}</h3>
-                <p className="text-gray-300 ">{description} </p>
+                <p className="text-gray-300 w-[90%]">{description} </p>
                 <span className={`${checkDueDate() ? "text-green-400" : "text-red-700"} font-light mt-5`}>{endDate}</span>
 
             </div>
