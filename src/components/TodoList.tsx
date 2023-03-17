@@ -49,6 +49,12 @@ const TodoItem = ({ id, title, description, completed, endDate }: TodoItemProps)
         setIsToggledTodo(!isToggledTodo)
     }
 
+    const checkDueDate = () => {
+        const date = new Date(endDate);
+        const today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+        return date < today;
+    }
+
     return (
         <div className="flex flex-col py-5  border-b border-gray-800 relative">
             <div className="flex flex-row ">
@@ -63,8 +69,7 @@ const TodoItem = ({ id, title, description, completed, endDate }: TodoItemProps)
                 <div className="flex flex-col">
                     <h3 className="text-gray-50 text-lg font-semibold">{title}</h3>
                     <p className="text-gray-300 ml-">{description} </p>
-
-                    <span className='text-white font-light mt-5'>{endDate}</span>
+                    <span className={`${checkDueDate() ? "text-green-400" : "text-red-700"} font-light mt-5`}>{endDate}</span>
                 </div>
             </div>
             {isToggledTodo &&

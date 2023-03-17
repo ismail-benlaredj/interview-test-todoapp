@@ -60,6 +60,11 @@ const NestedTodoItem = ({ id, title, description, completed, endDate }: TodoItem
         patchData(`${NESTED_TODO_API}/${id}`, { completed: !completed })
 
     }
+    const checkDueDate = () => {
+        const date = new Date(endDate);
+        const today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+        return date < today;
+    }
     return (
         <div className="flex flex-row border-b border-gray-800 ml-5 w-[80%]
         p-5">
@@ -70,6 +75,8 @@ const NestedTodoItem = ({ id, title, description, completed, endDate }: TodoItem
             <div className="flex flex-col">
                 <h3 className="text-gray-50 text-md font-semibold">{title}</h3>
                 <p className="text-gray-300 ">{description} </p>
+                <span className={`${checkDueDate() ? "text-green-400" : "text-red-700"} font-light mt-5`}>{endDate}</span>
+
             </div>
         </div>
     )
