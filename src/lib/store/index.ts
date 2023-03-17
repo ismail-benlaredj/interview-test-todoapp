@@ -1,4 +1,9 @@
-import { createStore, action, Action } from 'easy-peasy';
+import {
+    createStore,
+    action,
+    Action,
+    createTypedHooks
+} from 'easy-peasy';
 
 interface User {
     id: number;
@@ -55,5 +60,11 @@ const store = createStore({
     todo: todoModel,
     user: userModel,
 });
+
+const typedHooks = createTypedHooks();
+
+export const useStoreActions = typedHooks.useStoreActions;
+export const useStoreDispatch = typedHooks.useStoreDispatch;
+export const useStoreState = typedHooks.useStoreState;
 
 export default store;
