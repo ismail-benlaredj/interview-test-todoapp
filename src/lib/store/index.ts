@@ -27,14 +27,18 @@ const userModel: UserModel = {
 }
 
 interface Todo {
+    userId: number;
     id: number;
-    name: string;
+    pos: number;
+    title: string;
     description: string;
     completed: boolean;
+    endDate: string;
 }
 
 interface TodoModel {
     todos: Todo[];
+    setTodos: Action<TodoModel, Todo[]>;
     addTodo: Action<TodoModel, Todo>;
     deleteTodo: Action<TodoModel, number>;
     toggleTodo: Action<TodoModel, number>;
@@ -43,6 +47,9 @@ interface TodoModel {
 
 const todoModel: TodoModel = {
     todos: [],
+    setTodos: action((state, payload) => {
+        state.todos = payload;
+    }),
     addTodo: action((state, payload) => {
         state.todos.push(payload);
     }),
